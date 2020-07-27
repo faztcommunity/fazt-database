@@ -1,2 +1,2 @@
-# fazt-database
+# fazt-methodology
 Database for Fazt Community
