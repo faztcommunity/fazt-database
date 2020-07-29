@@ -1,7 +1,7 @@
 ---
 name: user story
 about: requerimiento funcional
-title: 'US###: COMO [actor] NECESTIO [requerimiento funcional] PARA [problema opcional]'
+title: 'US###: COMO [actor] NECESTO [requerimiento funcional] PARA [problema opcional]'
 labels: user story
 assignees: ''
 
