@@ -1,7 +1,7 @@
 ---
 name: suggest
 about: propuesta de función/servicio/canvio
-title: 'TS###: COMO [actor] PROPONGO [escena aparte] PARA [solucionar problemas o mejorar la trama]'
+title: 'IS###: COMO [actor] PROPONGO [escena aparte] PARA [solucionar problemas o mejorar la trama]'
 labels: Suggestion
 assignees: ''
 
