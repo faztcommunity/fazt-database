@@ -219,7 +219,7 @@ ALTER TABLE social_media_user ADD CONSTRAINT fk_user_social_media FOREIGN KEY (i
 ALTER TABLE team_project ADD CONSTRAINT fk_team_project FOREIGN KEY (id_team) REFERENCES team (id) ON UPDATE Restrict ON DELETE Restrict;
 ALTER TABLE team_project ADD CONSTRAINT fk_project_user_team FOREIGN KEY (id_project_user) REFERENCES project_user (id) ON UPDATE Restrict ON DELETE Restrict;
 ALTER TABLE skill_category ADD CONSTRAINT fk_skill_category FOREIGN KEY (id_skill) REFERENCES skill (id);
-ALTER TABLE skill_category ADD CONSTRAINT FKskill_cate348985 FOREIGN KEY (id_category) REFERENCES category (id);
+ALTER TABLE skill_category ADD CONSTRAINT fk_category_skill FOREIGN KEY (id_category) REFERENCES category (id);
 ALTER TABLE category_project ADD CONSTRAINT fk_project_category FOREIGN KEY (id_category) REFERENCES category (id);
 ALTER TABLE category_project ADD CONSTRAINT fk_category_project FOREIGN KEY (id_project) REFERENCES project (id);
 ALTER TABLE rol_user ADD CONSTRAINT fk_rol_user FOREIGN KEY (id_rol) REFERENCES rol (id);
