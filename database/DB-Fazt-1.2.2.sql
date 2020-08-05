@@ -7,7 +7,7 @@ CREATE TABLE category (
     UNIQUE (name_category));
 COMMENT ON COLUMN category.id IS 'Llave primaria.';
 COMMENT ON COLUMN category.name_category IS 'Nombre de la categoría.';
-COMMENT ON COLUMN category.state_category IS 'Estado actual de la categoría.';
+COMMENT ON COLUMN category.state_category IS 'Estado actual de la categoría [''Activo'',''Inactivo''].';
 CREATE TABLE "user" (
   id               SERIAL NOT NULL, 
   name             varchar(45) NOT NULL, 
@@ -16,7 +16,6 @@ CREATE TABLE "user" (
   password         varchar(80) NOT NULL, 
   image_path       text NOT NULL, 
   state_user       varchar(20) NOT NULL, 
-  active           int4 NOT NULL, 
   user_description text, 
   activation_key   int4, 
   reset_key        int4, 
@@ -32,8 +31,7 @@ COMMENT ON COLUMN "user".username IS 'Nombre de usuario registrado.';
 COMMENT ON COLUMN "user".email IS 'Correo electrónico del usuario registrado.';
 COMMENT ON COLUMN "user".password IS 'Contraseña del usuario registrado.';
 COMMENT ON COLUMN "user".image_path IS 'Dirección de la imagen de perfil del usuario registrado.';
-COMMENT ON COLUMN "user".state_user IS 'Estado actual en todo momento del usuario registrado.';
-COMMENT ON COLUMN "user".active IS 'Detalla si la cuenta del usuario registrado esta verificada o no.';
+COMMENT ON COLUMN "user".state_user IS 'Estado actual en todo momento del usuario registrado [''Activo'',''Inactivo'',''Baneado''].';
 COMMENT ON COLUMN "user".user_description IS 'Descripción del usuario.';
 COMMENT ON COLUMN "user".activation_key IS 'Llave o token generado para el registro del usuario.';
 COMMENT ON COLUMN "user".reset_key IS 'Llave o token generado para la recuperación de la contraseña del usuario registrado.';
@@ -57,7 +55,7 @@ COMMENT ON COLUMN project.id IS 'Llave primaria.';
 COMMENT ON COLUMN project.name_project IS 'Nombre del proyecto creado por un usuario.';
 COMMENT ON COLUMN project.project_description IS 'Descripción del proyecto creado por el usuario. Se debe especificar lo que va a realizarse en el proyecto.';
 COMMENT ON COLUMN project.capacity IS 'Número de integrantes permitidos en el proyecto.';
-COMMENT ON COLUMN project.status_project IS 'Estado actual del proyecto en todo momento.';
+COMMENT ON COLUMN project.status_project IS 'Estado actual del proyecto en todo momento [''Activo'', ''Inactivo'',''Finalizado'',''Rechazado'',''Aprobado'',''En espera''].';
 COMMENT ON COLUMN project.img_project IS 'Url en donde se encuentra la imagen.';
 COMMENT ON COLUMN project.url_repo IS 'Url donde se encuentra el repositorio del proyecto.';
 COMMENT ON COLUMN project.url_demo IS 'Url donde se encuentra alojado el demo.';
@@ -75,7 +73,7 @@ CREATE TABLE project_user (
 COMMENT ON COLUMN project_user.id IS 'Llave primaria.';
 COMMENT ON COLUMN project_user.id_project IS 'Llave foránea de project.';
 COMMENT ON COLUMN project_user.id_user IS 'Llave foránea de user.';
-COMMENT ON COLUMN project_user.state_user_project IS 'Estado actual del usuario en el proyecto.';
+COMMENT ON COLUMN project_user.state_user_project IS 'Estado actual del usuario en el proyecto [''Activo'',''Inactivo'',''Expulsado'',''Abandono''].';
 CREATE TABLE skill_project (
   id         SERIAL NOT NULL, 
   id_project int4 NOT NULL, 
@@ -97,7 +95,7 @@ CREATE TABLE project_team (
 COMMENT ON COLUMN project_team.id IS 'Llave primaria.';
 COMMENT ON COLUMN project_team.id_team IS 'Llave foránea de team.';
 COMMENT ON COLUMN project_team.id_project IS 'Llave foránea de project.';
-COMMENT ON COLUMN project_team.state_project_team IS 'Estado actual del equipo en el proyecto.';
+COMMENT ON COLUMN project_team.state_project_team IS 'Estado actual del equipo en el proyecto [''Activo'',''Inactivo''].';
 CREATE TABLE skill (
   id          SERIAL NOT NULL, 
   name_skill  varchar(45) NOT NULL, 
@@ -107,7 +105,7 @@ CREATE TABLE skill (
     UNIQUE (name_skill));
 COMMENT ON COLUMN skill.id IS 'Llave primaria.';
 COMMENT ON COLUMN skill.name_skill IS 'Nombre de la skill.';
-COMMENT ON COLUMN skill.state_skill IS 'Estado actual de la skill.';
+COMMENT ON COLUMN skill.state_skill IS 'Estado actual de la skill [''Activo'',''Inactivo''].';
 CREATE TABLE skill_user (
   id       SERIAL NOT NULL, 
   id_user  int4 NOT NULL, 
@@ -129,7 +127,7 @@ CREATE TABLE social_media (
 COMMENT ON COLUMN social_media.id IS 'Llave primaria.';
 COMMENT ON COLUMN social_media.name_social IS 'Nombre de la red social.';
 COMMENT ON COLUMN social_media.social_logo IS 'Url de ubicación para logo de la red social.';
-COMMENT ON COLUMN social_media.state_social_media IS 'Estado actual de la red social.';
+COMMENT ON COLUMN social_media.state_social_media IS 'Estado actual de la red social [''Activo'',''Inactivo''].';
 CREATE TABLE social_media_user (
   id              SERIAL NOT NULL, 
   id_social_media int4 NOT NULL, 
@@ -153,7 +151,7 @@ COMMENT ON COLUMN team.id IS 'Llave primaria.';
 COMMENT ON COLUMN team.name_team IS 'Nombre del equipo creado.';
 COMMENT ON COLUMN team.team_description IS 'Descripción de las actividades que realiza el equipo.';
 COMMENT ON COLUMN team.team_capacity IS 'Número de personas permitidas a entrar en el equipo.';
-COMMENT ON COLUMN team.state_team IS 'Estado actual en el que se encuentra el equipo.';
+COMMENT ON COLUMN team.state_team IS 'Estado actual en el que se encuentra el equipo [''Activo'',''Inactivo''].';
 CREATE TABLE team_project (
   id              SERIAL NOT NULL, 
   id_team         int4 NOT NULL, 
@@ -165,7 +163,7 @@ CREATE TABLE team_project (
 COMMENT ON COLUMN team_project.id IS 'Llave primaria.';
 COMMENT ON COLUMN team_project.id_team IS 'Llave foránea de team.';
 COMMENT ON COLUMN team_project.id_project_user IS 'Llave foránea de project user.';
-COMMENT ON COLUMN team_project.state_user_team IS 'Estado del usuario en el equipo.';
+COMMENT ON COLUMN team_project.state_user_team IS 'Estado del usuario en el equipo [''Activo'',''Inactivo''].';
 CREATE TABLE skill_category (
   id          SERIAL NOT NULL, 
   id_skill    int4 NOT NULL, 
@@ -205,7 +203,7 @@ CREATE TABLE rol_user (
 COMMENT ON COLUMN rol_user.id IS 'Llave primaria.';
 COMMENT ON COLUMN rol_user.id_rol IS 'Llave foránea de rol.';
 COMMENT ON COLUMN rol_user.id_user IS 'Llave foránea de user.';
-COMMENT ON COLUMN rol_user.state_rol IS 'Estado actual del rol.';
+COMMENT ON COLUMN rol_user.state_rol IS 'Estado actual del rol [''Activo'',''Inactivo''].';
 ALTER TABLE project_user ADD CONSTRAINT fk_id_project_id_contributor FOREIGN KEY (id_project) REFERENCES project (id) ON UPDATE Restrict ON DELETE Restrict;
 ALTER TABLE project_user ADD CONSTRAINT fk_project_user FOREIGN KEY (id_user) REFERENCES "user" (id) ON UPDATE Restrict ON DELETE Restrict;
 ALTER TABLE skill_project ADD CONSTRAINT fk_skill_project FOREIGN KEY (id_project) REFERENCES project (id) ON UPDATE Restrict ON DELETE Restrict;
