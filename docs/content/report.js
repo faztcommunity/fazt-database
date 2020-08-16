@@ -572,6 +572,8 @@ function okLayersDialog(layersDialogId, checkBoxIds) {
 		showComponent("layersBackground");
 	}
 	
+	var hideComponents = [];
+	var showComponents = [];
 	for (var i = 0; i < count; i++) {
 		var checkbox = document.getElementById(checkBoxIds[i]);
 		var rowIds = checkbox.value.split(";");
@@ -580,18 +582,26 @@ function okLayersDialog(layersDialogId, checkBoxIds) {
 			for (var rowIndex = 0; rowIndex < rowCount; rowIndex++) {
 				var lRowId = rowIds[rowIndex]
 				if (lHidedCount == 0 && lRowId.length > 12 && lRowId.substring(12, 0) == "diagramLayer") {
-					hideComponent(lRowId); // hide Diagram, because all layers shown, just show the full diagram
+					hideComponents.push(lRowId); // hide Diagram, because all layers shown, just show the full diagram
 				}
 				else {
-					showComponent(lRowId);
+					showComponents.push(lRowId);
 				}
 			}
 		}
 		else {
 			var rowCount = rowIds.length;
 			for (var rowIndex = 0; rowIndex < rowCount; rowIndex++) {
-				hideComponent(rowIds[rowIndex]);
+				hideComponents.push(rowIds[rowIndex]);
 			}
+		}
+	}
+	for (var showRowId of showComponents) {
+		showComponent(showRowId);
+	}
+	for (var hideRowId of hideComponents) {
+		if (! showComponents.includes(hideRowId)) {
+			hideComponent(hideRowId);
 		}
 	}
 	layersDialog.style.zIndex = 1;
