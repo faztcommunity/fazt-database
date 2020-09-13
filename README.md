@@ -19,4 +19,8 @@
 * **drakonc** [GitHub](https://github.com/drakonc)
 * **Dano** [GitHub](https://github.com/DanoRysJan)
 
+# Fazt Community Docs
+
+*[FC-Docs](https://faztcommunity.github.io/fazt-community-docs/)
+
 <p align="center"><img src="http://randojs.com/images/barsSmall.gif" alt="Animated footer bars" width="100%"/></p>
