@@ -8,34 +8,6 @@ CREATE TABLE category (
 COMMENT ON COLUMN category.id IS 'Llave primaria.';
 COMMENT ON COLUMN category.name_category IS 'Nombre de la categoría.';
 COMMENT ON COLUMN category.state_category IS 'Estado actual de la categoría [''Activo'',''Inactivo''].';
-CREATE TABLE "user" (
-  id               SERIAL NOT NULL, 
-  name             varchar(45) NOT NULL, 
-  username         varchar(45) NOT NULL, 
-  email            varchar(60) NOT NULL, 
-  password         varchar(80) NOT NULL, 
-  image_path       text NOT NULL, 
-  state_user       varchar(20) NOT NULL, 
-  user_description text, 
-  activation_key   int4, 
-  reset_key        int4, 
-  reset_date       int4, 
-  PRIMARY KEY (id), 
-  CONSTRAINT uk_email 
-    UNIQUE (email), 
-  CONSTRAINT uk_username 
-    UNIQUE (username));
-COMMENT ON COLUMN "user".id IS 'Llave primaria.';
-COMMENT ON COLUMN "user".name IS 'Nombre completo del usuario registrado.';
-COMMENT ON COLUMN "user".username IS 'Nombre de usuario registrado.';
-COMMENT ON COLUMN "user".email IS 'Correo electrónico del usuario registrado.';
-COMMENT ON COLUMN "user".password IS 'Contraseña del usuario registrado.';
-COMMENT ON COLUMN "user".image_path IS 'Dirección de la imagen de perfil del usuario registrado.';
-COMMENT ON COLUMN "user".state_user IS 'Estado actual en todo momento del usuario registrado [''Activo'',''Inactivo'',''Baneado''].';
-COMMENT ON COLUMN "user".user_description IS 'Descripción del usuario.';
-COMMENT ON COLUMN "user".activation_key IS 'Llave o token generado para el registro del usuario.';
-COMMENT ON COLUMN "user".reset_key IS 'Llave o token generado para la recuperación de la contraseña del usuario registrado.';
-COMMENT ON COLUMN "user".reset_date IS 'Fecha en la que se pidió recuperar la contraseña del usuario registrado.';
 CREATE TABLE project (
   id                  SERIAL NOT NULL, 
   name_project        varchar(45) NOT NULL, 
@@ -152,7 +124,7 @@ COMMENT ON COLUMN team.name_team IS 'Nombre del equipo creado.';
 COMMENT ON COLUMN team.team_description IS 'Descripción de las actividades que realiza el equipo.';
 COMMENT ON COLUMN team.team_capacity IS 'Número de personas permitidas a entrar en el equipo.';
 COMMENT ON COLUMN team.state_team IS 'Estado actual en el que se encuentra el equipo [''Activo'',''Inactivo''].';
-CREATE TABLE team_project (
+CREATE TABLE team_project_user (
   id              SERIAL NOT NULL, 
   id_team         int4 NOT NULL, 
   id_project_user int4 NOT NULL, 
@@ -160,10 +132,10 @@ CREATE TABLE team_project (
   PRIMARY KEY (id), 
   CONSTRAINT uk_project_user_team 
     UNIQUE (id_team, id_project_user));
-COMMENT ON COLUMN team_project.id IS 'Llave primaria.';
-COMMENT ON COLUMN team_project.id_team IS 'Llave foránea de team.';
-COMMENT ON COLUMN team_project.id_project_user IS 'Llave foránea de project user.';
-COMMENT ON COLUMN team_project.state_user_team IS 'Estado del usuario en el equipo [''Activo'',''Inactivo''].';
+COMMENT ON COLUMN team_project_user.id IS 'Llave primaria.';
+COMMENT ON COLUMN team_project_user.id_team IS 'Llave foránea de team.';
+COMMENT ON COLUMN team_project_user.id_project_user IS 'Llave foránea de project user.';
+COMMENT ON COLUMN team_project_user.state_user_team IS 'Estado del usuario en el equipo [''Activo'',''Inactivo''].';
 CREATE TABLE skill_category (
   id          SERIAL NOT NULL, 
   id_skill    int4 NOT NULL, 
@@ -186,7 +158,7 @@ COMMENT ON COLUMN category_project.id_category IS 'Llave foránea de category.';
 COMMENT ON COLUMN category_project.id_project IS 'Llave foránea de project.';
 CREATE TABLE rol (
   id       SERIAL NOT NULL, 
-  name_rol int4 NOT NULL, 
+  name_rol varchar(20) NOT NULL, 
   PRIMARY KEY (id), 
   CONSTRAINT uk_name_rol 
     UNIQUE (name_rol));
@@ -204,6 +176,34 @@ COMMENT ON COLUMN rol_user.id IS 'Llave primaria.';
 COMMENT ON COLUMN rol_user.id_rol IS 'Llave foránea de rol.';
 COMMENT ON COLUMN rol_user.id_user IS 'Llave foránea de user.';
 COMMENT ON COLUMN rol_user.state_rol IS 'Estado actual del rol [''Activo'',''Inactivo''].';
+CREATE TABLE "user" (
+  id               SERIAL NOT NULL, 
+  name             varchar(45) NOT NULL, 
+  username         varchar(45) NOT NULL, 
+  email            varchar(60) NOT NULL, 
+  password         varchar(80) NOT NULL, 
+  image_path       text NOT NULL, 
+  state_user       varchar(20) NOT NULL, 
+  user_description text, 
+  activation_key   int4, 
+  reset_key        int4, 
+  reset_date       int4, 
+  PRIMARY KEY (id), 
+  CONSTRAINT uk_email 
+    UNIQUE (email), 
+  CONSTRAINT uk_username 
+    UNIQUE (username));
+COMMENT ON COLUMN "user".id IS 'Llave primaria.';
+COMMENT ON COLUMN "user".name IS 'Nombre completo del usuario registrado.';
+COMMENT ON COLUMN "user".username IS 'Nombre de usuario registrado.';
+COMMENT ON COLUMN "user".email IS 'Correo electrónico del usuario registrado.';
+COMMENT ON COLUMN "user".password IS 'Contraseña del usuario registrado.';
+COMMENT ON COLUMN "user".image_path IS 'Dirección de la imagen de perfil del usuario registrado.';
+COMMENT ON COLUMN "user".state_user IS 'Estado actual en todo momento del usuario registrado [''Activo'',''Inactivo'',''Baneado''].';
+COMMENT ON COLUMN "user".user_description IS 'Descripción del usuario.';
+COMMENT ON COLUMN "user".activation_key IS 'Llave o token generado para el registro del usuario.';
+COMMENT ON COLUMN "user".reset_key IS 'Llave o token generado para la recuperación de la contraseña del usuario registrado.';
+COMMENT ON COLUMN "user".reset_date IS 'Fecha en la que se pidió recuperar la contraseña del usuario registrado.';
 ALTER TABLE project_user ADD CONSTRAINT fk_id_project_id_contributor FOREIGN KEY (id_project) REFERENCES project (id) ON UPDATE Restrict ON DELETE Restrict;
 ALTER TABLE project_user ADD CONSTRAINT fk_project_user FOREIGN KEY (id_user) REFERENCES "user" (id) ON UPDATE Restrict ON DELETE Restrict;
 ALTER TABLE skill_project ADD CONSTRAINT fk_skill_project FOREIGN KEY (id_project) REFERENCES project (id) ON UPDATE Restrict ON DELETE Restrict;
@@ -214,8 +214,8 @@ ALTER TABLE skill_user ADD CONSTRAINT fk_user_skill FOREIGN KEY (id_user) REFERE
 ALTER TABLE skill_user ADD CONSTRAINT fk_skill_user FOREIGN KEY (id_skill) REFERENCES skill (id) ON UPDATE Restrict ON DELETE Restrict;
 ALTER TABLE social_media_user ADD CONSTRAINT fk_social_media_user FOREIGN KEY (id_social_media) REFERENCES social_media (id) ON UPDATE Restrict ON DELETE Restrict;
 ALTER TABLE social_media_user ADD CONSTRAINT fk_user_social_media FOREIGN KEY (id_user) REFERENCES "user" (id) ON UPDATE Restrict ON DELETE Restrict;
-ALTER TABLE team_project ADD CONSTRAINT fk_team_project FOREIGN KEY (id_team) REFERENCES team (id) ON UPDATE Restrict ON DELETE Restrict;
-ALTER TABLE team_project ADD CONSTRAINT fk_project_user_team FOREIGN KEY (id_project_user) REFERENCES project_user (id) ON UPDATE Restrict ON DELETE Restrict;
+ALTER TABLE team_project_user ADD CONSTRAINT fk_team_project FOREIGN KEY (id_team) REFERENCES team (id) ON UPDATE Restrict ON DELETE Restrict;
+ALTER TABLE team_project_user ADD CONSTRAINT fk_project_user_team FOREIGN KEY (id_project_user) REFERENCES project_user (id) ON UPDATE Restrict ON DELETE Restrict;
 ALTER TABLE skill_category ADD CONSTRAINT fk_skill_category FOREIGN KEY (id_skill) REFERENCES skill (id);
 ALTER TABLE skill_category ADD CONSTRAINT fk_category_skill FOREIGN KEY (id_category) REFERENCES category (id);
 ALTER TABLE category_project ADD CONSTRAINT fk_project_category FOREIGN KEY (id_category) REFERENCES category (id);
